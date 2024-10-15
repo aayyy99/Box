@@ -131,7 +131,7 @@ public class ApiConfig {
 
     public void loadConfig(boolean useCache, LoadConfigCallback callback, Activity activity) {
         // Embedded Source : Update in Strings.xml if required
-        String apiUrl = Hawk.get(HawkConfig.API_URL, "http://饭太硬.ga/x/o.json");
+        String apiUrl = Hawk.get(HawkConfig.API_URL, "https://gitee.com/li3381/liyang1/raw/master/liyang1.json");
         if (apiUrl.isEmpty()) {
             callback.error("源地址为空");
             return;
