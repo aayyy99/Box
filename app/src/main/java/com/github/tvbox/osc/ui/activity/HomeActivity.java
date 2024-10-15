@@ -414,7 +414,7 @@ public class HomeActivity extends BaseActivity {
             } else {
                 LOG.e("无");
             }
-            if (Hawk.get(HawkConfig.HOME_DEFAULT_SHOW, false)) {
+            if (Hawk.get(HawkConfig.HOME_DEFAULT_SHOW, true)) {
                 jumpActivity(LivePlayActivity.class);
             }         
             return;
