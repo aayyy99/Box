@@ -10,17 +10,25 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Set up Java JDK
         uses: actions/setup-java@v2
         with:
           java-version: '11'  # 选择 Java 版本
           distribution: 'temurin'  # 选择 Java 分发版本
 
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Build With Gradle
         run: |
           chmod +x gradlew
-          ./gradlew assembleRelease --build-cache --parallel --daemon --warning-mode all
+          ./gradlew assembleRelease --build-cache --parallel --daemon --warning-mode all --stacktrace
 
       - name: Prepare App
         run: |
@@ -29,7 +37,7 @@ jobs:
           find . -name "*.apk" -exec mv {} ${{ github.workspace }}/apk/ \;
 
       - name: Upload App To Artifact
-        uses: actions/upload-artifact@v4  # 更新到 v4 版本
+        uses: actions/upload-artifact@v4  # 上传到 v4 版本
         with:
           name: com.github.tvbox.osc
           path: ${{ github.workspace }}/apk/*  # 上传 APK 文件
