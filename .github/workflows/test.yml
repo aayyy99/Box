@@ -8,13 +8,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code  # 添加代码检查步骤
+      - name: Checkout code
         uses: actions/checkout@v2
         
-      - name: Set up Java JDK  # 设置 Java 环境
+      - name: Set up Java JDK
         uses: actions/setup-java@v2
         with:
-          java-version: '11'  # 确保使用正确的 Java 版本
+          java-version: '11'  # 选择 Java 版本
+          distribution: 'temurin'  # 选择 Java 分发版本
 
       - name: Build With Gradle
         run: |
